@@ -18,9 +18,11 @@ class Products(db.Model):
     product_price = db.Column(db.String(255))
     product_category = db.Column(db.String(255))
 
-    def __init__(self, title, description):
-        self.title = title
-        self.description = description
+    def __init__(self, product_id, product_name, product_price, product_category):
+            self.product_id = product_id
+            self.product_name = product_name
+            self.product_price = product_price
+            self.product_category = product_category
 
 class ProductsSchema(ma.Schema):
     class Meta:
@@ -29,16 +31,49 @@ class ProductsSchema(ma.Schema):
 product_schema = ProductsSchema()
 products_schema = ProductsSchema(many=True)
 
-@app.route('/get', methods = ['get'])
+@app.route('/get_products', methods = ['get'])
 def get_products():
     all_products = Products.query.all()
     results = products_schema.dump(all_products)
     return jsonify(results)
 
-@app.route('/get/<id>/', methods = ['get'])
+@app.route('/get_products/<id>/', methods = ['get'])
 def product_details(product_id):
     product = Products.query.get(product_id)
     return product_schema.jsonify(product)
+
+class Sales(db.Model):
+    invoice_no = db.Column(db.Integer(), primary_key=True)
+    total = db.Column(db.String(255))
+    discount = db.Column(db.String(255))
+    grand_total = db.Column(db.String(255))
+    username = db.Column(db.String(255))
+
+    def __init__(self, invoice_no, total, discount, grand_total, username):
+        self.invoice_no = invoice_no
+        self.total = total
+        self.discount = discount
+        self.grand_total = grand_total
+        self.username = username
+
+
+class SalesSchema(ma.Schema):
+    class Meta:
+        fields = ('invoice_no', 'total', 'discount', 'grand_total', 'username')
+
+sales_schema = SalesSchema()
+sales_many = SalesSchema(many=True)
+
+@app.route('/get', methods = ['get'])
+def get_sales():
+    all_sales = Sales.query.all()
+    results = sales_many.dump(all_sales)
+    return jsonify(results)
+
+@app.route('/get/<id>/', methods = ['get'])
+def sales_details(invoice_no):
+    sales = Sales.query.get(invoice_no)
+    return sales_schema.jsonify(sales)
 
 # @app.route('/add', methods = ['post'])
 # def add_article():
