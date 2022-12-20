@@ -80,8 +80,8 @@ def add_sales():
     grand_total = request.json['grand_total']
     username = request.json['username']
 
-    # sales = Sales(total, discount, grand_total, username)
-    sales = Sales('45896', '5', '45687', 'udey')
+    sales = Sales(total, discount, grand_total, username)
+    # sales = Sales('45896', '5', '45687', 'udey')
     db.session.add(sales)
     db.session.commit()
     return sales_schema.jsonify(sales)
