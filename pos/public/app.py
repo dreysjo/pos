@@ -5,8 +5,6 @@ from flask_marshmallow import Marshmallow
 
 app = Flask(__name__)
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/flask'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/shop_invoice'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -75,15 +73,18 @@ def sales_details(invoice_no):
     sales = Sales.query.get(invoice_no)
     return sales_schema.jsonify(sales)
 
-# @app.route('/add', methods = ['post'])
-# def add_article():
-#     title = request.json['title']
-#     description = request.json['description']
-#
-#     articles = Products(title, description)
-#     db.session.add(articles)
-#     db.session.commit()
-#     return article_schema.jsonify(articles)
+@app.route('/add', methods = ['post'])
+def add_sales():
+    total = request.json['total']
+    discount = request.json['discount']
+    grand_total = request.json['grand_total']
+    username = request.json['username']
+
+    # sales = Sales(total, discount, grand_total, username)
+    sales = Sales('45896', '5', '45687', 'udey')
+    db.session.add(sales)
+    db.session.commit()
+    return sales_schema.jsonify(sales)
 #
 # @app.route('/update/<id>/', methods = ['put'])
 # def update_article(id):
