@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <tr v-for="item in details">
-          <td>{{ item.name }}</td>
+          <td style="line-height:20px;">{{ item.name }}</td>
           <td>{{ item.qty }}</td>
           <td>Rp.{{ item.price }}</td>
           <td>Rp.{{ item.price * item.qty }}</td>
@@ -96,6 +96,7 @@ h3 {
 .table-section::-webkit-scrollbar {
   display: none;
 }
+
 .totals {
   display: flex;
   justify-content: flex-end;
