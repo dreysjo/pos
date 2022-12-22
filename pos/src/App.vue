@@ -10,8 +10,9 @@
       <Categories @filterCategory="filterCategory"></Categories>
       <Catalogues :products="filterCategory(selectedCategory)"  @addItem="handleAddItem"></Catalogues>
       <div class="v2"></div>
-      <div id="admin-commands"></div>
-      <Sales></Sales>
+      <button type="button" class="btn btn-primary" href="#/sales" >Admin</button>
+<!--      <Sales></Sales>-->
+<!--      <component :is="currentView" />-->
     </div>
   </div>
 </template>
@@ -24,6 +25,10 @@ import CommandsLeft from './components/CommandsLeft.vue'
 import Categories from './components/Categories.vue'
 import Catalogues from './components/Catalogues.vue'
 import Sales from './components/Sales.vue'
+
+const routes ={
+  '/sales': Sales
+}
 
 export default {
   name: 'App',
@@ -82,9 +87,20 @@ data(){
       "Pastry",
       "Beverages"
     ],
-    selectedCategory: "kabeh"
+    selectedCategory: "kabeh",
+    currentPath: window.location.hash
   }
 },
+  computed: {
+    currentView() {
+      return routes[this.currentPath.slice(1) || '/'] || NotFound
+    }
+  },
+  mounted() {
+    window.addEventListener('hashchange', () => {
+		  this.currentPath = window.location.hash
+		})
+  },
 methods: {
 
   handleAddItem(productObj) {
@@ -99,14 +115,14 @@ methods: {
         qty : 1 ,
         price : productObj.price
       })
-      
+
     } else {
       let indexdarinamaorangitu = this.details.findIndex((obj => obj.name == productObj.name))
       console.log("Index Orang")
       console.log(indexdarinamaorangitu)
       this.details[indexdarinamaorangitu].qty += 1
-      
-    }    
+
+    }
   },
 
   clearKabeh(){
@@ -121,7 +137,9 @@ methods: {
       return this.products.filter(e => e.category == category)
     }
   },
-
+goToCreate() {
+    this.$router.push(Sales)
+}
 
 
 }
