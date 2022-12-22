@@ -77,7 +77,7 @@ a {
 .catalogue-section {
   max-height: 60vh;
   /* border-bottom: 0.5px solid grey; */
-  padding: 12px;
+  padding: 20px;
   overflow-y:scroll;
 }
 /* .catalogue-section::-webkit-scrollbar {
@@ -85,6 +85,7 @@ a {
 } */
 .gallery{
  background-color: rgb(85, 26, 124);
+ padding: 10px;
  margin: 20px 20px;
  float: left;
  width: 180px;
