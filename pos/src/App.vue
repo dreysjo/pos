@@ -11,6 +11,7 @@
       <Catalogues :products="filterCategory(selectedCategory)"  @addItem="handleAddItem"></Catalogues>
       <div class="v2"></div>
       <div id="admin-commands"></div>
+      <Sales></Sales>
     </div>
   </div>
 </template>
@@ -22,6 +23,7 @@ import BodyInvoice from './components/BodyInvoice.vue'
 import CommandsLeft from './components/CommandsLeft.vue'
 import Categories from './components/Categories.vue'
 import Catalogues from './components/Catalogues.vue'
+import Sales from './components/Sales.vue'
 
 export default {
   name: 'App',
@@ -31,7 +33,8 @@ export default {
     BodyInvoice,
     CommandsLeft,
     Categories,
-    Catalogues
+    Catalogues,
+    Sales
 },
 data(){
   return{

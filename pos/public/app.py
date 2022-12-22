@@ -1,7 +1,9 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, current_app
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 from flask_marshmallow import Marshmallow
+from flask_cors import CORS, cross_origin
+
 
 app = Flask(__name__)
 
@@ -88,6 +90,23 @@ def add_sales():
     db.session.add(sales)
     db.session.commit()
     return sales_schema.jsonify(sales)
+
+
+# app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+@app.route("/")
+@cross_origin()
+def helloWorld():
+  return "Hello, cross-origin-world!"
+
+# @app.route('/sets/', methods=['GET']) # Added trailing backslash
+# def sets():
+#     data = request.get_json()
+#     db.session.add(_set)
+#     db.session.commit()
+#     return "set saved", 201
 #
 # @app.route('/update/<id>/', methods = ['put'])
 # def update_article(id):

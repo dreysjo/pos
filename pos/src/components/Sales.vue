@@ -3,9 +3,9 @@
     <div class="row">
       <div class="col-sm-10">
         <h1>Sales</h1>
-        <hr><br><br>
-        <button type="button" class="btn btn-success btn-sm">Add Book</button>
-        <br><br>
+<!--        <hr><br><br>-->
+<!--        <button type="button" class="btn btn-success btn-sm">Add Book</button>-->
+<!--        <br><br>-->
         <table class="table table-hover">
           <thead>
             <tr>
@@ -18,7 +18,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(sale, invoice_no) in sales" :key="invoice_no">
+            <tr v-for="(sale, index) in sales" :key="index">
               <td>{{ sale.invoice_no }}</td>
               <td>{{ sale.total }}</td>
               <td>{{ sale.discount }}</td>
@@ -26,12 +26,12 @@
               <td>{{ sale.username }}</td>
               <td>
               </td>
-              <td>
-                <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-warning btn-sm">Update</button>
-                  <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                </div>
-              </td>
+<!--              <td>-->
+<!--                <div class="btn-group" role="group">-->
+<!--                  <button type="button" class="btn btn-warning btn-sm">Update</button>-->
+<!--                  <button type="button" class="btn btn-danger btn-sm">Delete</button>-->
+<!--                </div>-->
+<!--              </td>-->
             </tr>
           </tbody>
         </table>
