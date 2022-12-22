@@ -46,7 +46,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      books: [],
+      sales: [],
     };
   },
   methods: {
