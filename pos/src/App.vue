@@ -1,18 +1,18 @@
 <template>
   <div class="side-container">
     <div id="left">
-      <HeaderInvoice username="udey" invoiceInfo="10.252.234.132" date="13/12/2022"></HeaderInvoice>
-      <BodyInvoice :details="details"></BodyInvoice>
-      <CommandsLeft :clearKabeh="clearKabeh"></CommandsLeft>
+      <HeaderInvoice username="udey" invoiceInfo="10.252.234.132" date="13/12/2022" v-if="homeVisible"></HeaderInvoice>
+      <BodyInvoice :details="details" v-if="homeVisible"></BodyInvoice>
+      <CommandsLeft :clearKabeh="clearKabeh"  v-if="homeVisible"></CommandsLeft>
     </div>
     <div class="v1"></div>
     <div id="right">
-      <Categories @filterCategory="filterCategory"></Categories>
-      <Catalogues :products="filterCategory(selectedCategory)"  @addItem="handleAddItem"></Catalogues>
+      <Categories @filterCategory="filterCategory" v-if="homeVisible"></Categories>
+      <Catalogues :products="filterCategory(selectedCategory)"  @addItem="handleAddItem" v-if="homeVisible"></Catalogues>
       <div class="v2"></div>
-      <button type="button" class="btn btn-primary" href="#/sales" >Admin</button>
-<!--      <Sales></Sales>-->
-<!--      <component :is="currentView" />-->
+        <button type="button" class="btn btn-primary" @click="toggleSales">Admin</button> <h></h><h></h>
+        <button type="button" class="btn btn-primary" @click="toggleHome">Home</button>
+      <Sales v-if="salesVisible"></Sales>
     </div>
   </div>
 </template>
@@ -26,9 +26,6 @@ import Categories from './components/Categories.vue'
 import Catalogues from './components/Catalogues.vue'
 import Sales from './components/Sales.vue'
 
-const routes ={
-  '/sales': Sales
-}
 
 export default {
   name: 'App',
@@ -88,19 +85,11 @@ data(){
       "Beverages"
     ],
     selectedCategory: "kabeh",
-    currentPath: window.location.hash
+    currentPath: window.location.hash,
+    salesVisible : false,
+    homeVisible : true
   }
 },
-  computed: {
-    currentView() {
-      return routes[this.currentPath.slice(1) || '/'] || NotFound
-    }
-  },
-  mounted() {
-    window.addEventListener('hashchange', () => {
-		  this.currentPath = window.location.hash
-		})
-  },
 methods: {
 
   handleAddItem(productObj) {
@@ -139,9 +128,16 @@ methods: {
   },
 goToCreate() {
     this.$router.push(Sales)
-}
+},
 
-
+toggleSales() {
+this.salesVisible = true
+  this.homeVisible = false
+},
+  toggleHome() {
+    this.salesVisible = false
+    this.homeVisible = true
+  }
 }
 }
 </script>
