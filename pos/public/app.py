@@ -66,7 +66,10 @@ sales_many = SalesSchema(many=True)
 def get_sales():
     all_sales = Sales.query.all()
     results = sales_many.dump(all_sales)
-    return jsonify(results)
+    return jsonify({
+        'status': 'success',
+        'sales': results
+    })
 
 @app.route('/get/<id>/', methods = ['get'])
 def sales_details(invoice_no):
